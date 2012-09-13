@@ -1,0 +1,22 @@
+=== modified file 'src/pblaze/main.c'
+--- src/pblaze/main.c	2012-09-11 03:12:53 +0000
++++ src/pblaze/main.c	2012-09-13 05:55:01 +0000
+@@ -198,7 +198,7 @@
+ 	} else {
+ 	    dbuf_printf(oBuf, "\tORG\t$3ff\n");
+ 	}
+-	dbuf_printf(oBuf, "\tJUMP\t%s\n", pblaze_interrupt->name);
++	dbuf_printf(oBuf, "\tJUMP\t_%s\n", pblaze_interrupt->name);
+     }
+ 
+     return TRUE;
+@@ -234,7 +234,7 @@
+ 
+ /* $3 is replaced by assembler.debug_opts resp. port->assembler.plain_opts */
+ static const char *_asmCmd[] = {
+-    "aspblaze", "$l", "$3", "\"$1.s\"", NULL
++    "kcpsm3w32", "--verilog", "\"$1.psm\"", NULL
+ };
+ 
+ /* Globals */
+

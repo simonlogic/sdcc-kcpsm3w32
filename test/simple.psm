@@ -1,0 +1,52 @@
+;--------------------------------------------------------
+; File Created by SDCC : free open source ANSI-C Compiler
+; Version 3.0.1 #6227 (Sep 11 2012) (MINGW32)
+; This file was generated Tue Sep 11 11:33:36 2012
+;--------------------------------------------------------
+;--------------------------------------------------------
+; global & static initialisations
+;--------------------------------------------------------
+
+	LOAD	sF, 3f
+	JUMP	__sdcc_program_startup
+;--------------------------------------------------------
+; Home
+;--------------------------------------------------------
+__sdcc_program_startup:
+	CALL	_main
+;	return from main will lock up
+__sdcc_loop:
+	JUMP	__sdcc_loop
+;--------------------------------------------------------
+; code
+;--------------------------------------------------------
+	;	simple.c:10: void ihandler() __interrupt (0)
+_ihandler:
+	;	simple.c:14: input(0xFE, &tmp);
+	STORE	s0, (sF)
+	SUB	sF, 01
+	INPUT	s0, fe
+	;	simple.c:15: output(0xFD, tmp);
+	OUTPUT	s0, fd
+	;	simple.c:17: __asm ENABLE INTERRUPT __endasm;
+	 ENABLE INTERRUPT 
+	ADD	sF, 01
+	FETCH	s0, (sF)
+	RETURNI ENABLE
+	;	simple.c:20: int main()
+_main:
+	;	simple.c:24: __asm ENABLE INTERRUPT __endasm;
+	 ENABLE INTERRUPT 
+	;	simple.c:26: while(1) {
+_L00104:
+	;	simple.c:27: input(0xFF, &tmp);
+	INPUT	s0, ff
+	;	simple.c:28: output(0xFE, tmp);
+	OUTPUT	s0, fe
+	JUMP	_L00104
+	RETURN
+;--------------------------------------------------------
+; interrupt vector 
+;--------------------------------------------------------
+	ADDRESS	3ff
+	JUMP	_ihandler
