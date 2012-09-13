@@ -1,0 +1,12 @@
+-----
+./configure --host=i586-mingw32msvc --disable-pic16-port --disable-pic14-port --disable-json-port --disable-ds390-port --disable-ds400-port --disable-z80-port --disable-mcs51-port --disable-hc80-port --disable-gbz80-port
+
+chmod +x sim/ucsim/mkecho
+make
+
+-----
+vim
+" Picoblaze
+au BufNewFile,BufRead *.psm			setf psm
+
+
